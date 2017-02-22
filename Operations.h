@@ -3,9 +3,8 @@
 #include <string.h>
 #include <iostream>
 
+
 using namespace std;
-
-
 
 
 /* 
@@ -20,7 +19,7 @@ public:
 //protected:
 	Operations(char theSymbol, int Priority);
 
-	float DoOperation(float param1, float param2) { cout << "Called virtual parent function; Not what you expected."; };
+	void DoOperation(float param1, float param2) { cout << "Called virtual parent function; Not what you expected."; };
 	~Operations();
 };
 
@@ -67,3 +66,6 @@ public:
 	char symbol = '-';
 	int priority = 5;
 };
+
+
+

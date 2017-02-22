@@ -35,3 +35,6 @@ float Sustraction::DoOperation(float param1, float param2)
 {
 	return param1-param2;
 }
+
+
+
