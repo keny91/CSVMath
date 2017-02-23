@@ -145,8 +145,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MathNode.h" />
     <ClInclude Include="MathOperations.h" />
-    <ClInclude Include="Operations.h" />
     <ClInclude Include="ReadCSV.h" />
     <ClInclude Include="RecordCSV.h" />
     <ClInclude Include="resource.h" />
@@ -156,8 +156,8 @@
   <ItemGroup>
     <ClCompile Include="CSVMath.cpp" />
     <ClCompile Include="FolderHandler.cpp" />
+    <ClCompile Include="MathNode.cpp" />
     <ClCompile Include="MathOperations.cpp" />
-    <ClCompile Include="Operations.cpp" />
     <ClCompile Include="ReadCSV.cpp" />
     <ClCompile Include="RecordCSV.cpp" />
     <ClCompile Include="stdafx.cpp">
