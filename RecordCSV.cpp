@@ -24,31 +24,26 @@ Recording Datafile Operations
 void RecordCSV::InitCSVOutputLog(char* FileName) {
 
 	char * FolderName;
-	char directory[200];
+	char directory[1000];
 	char * postfix = ".csv";
 	FolderName = "./Output/";
 
 
-
-	strcpy_s(directory, FolderName);  // ./Output/
-	strcat_s(directory, FileName);	// ./Output/FileName
+	
+	strcpy_s(directory, FileName);  // ./Output/
+	//strcat_s(directory, FileName);	// ./Output/FileName
 	strcat_s(directory, postfix);
-
-
-	/*
-	if (_mkdir(directory) ||
-	ERROR_ALREADY_EXISTS == GetLastError())
-	*/
+	
 
 	datafile = ofstream(directory);
 	cout << "Opened file " << directory << endl;
 }
 
 
-void RecordCSV::WriteToCSV( char*input) {
-
-	datafile << input;
-	cout << input << endl;
+void RecordCSV::WriteToCSV(string input) {
+	const char * prov = input.c_str();
+	datafile << prov;
+	cout << "Written to file value: " <<prov << endl;
 }
 
 void RecordCSV::CloseCSV() {

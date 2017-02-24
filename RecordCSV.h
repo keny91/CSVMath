@@ -10,7 +10,9 @@
 
 using namespace std;
 
-
+/*
+This class reads an input and tries to open a file with an input name/directory 
+*/
 
 class RecordCSV
 {
@@ -24,7 +26,7 @@ public:
 	~RecordCSV();
 	// File writting 
 	void InitCSVOutputLog(char* FileName);
-	void WriteToCSV(char * input);
+	void WriteToCSV(string input);
 	void CloseCSV();
 };
 

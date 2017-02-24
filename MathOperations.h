@@ -9,6 +9,13 @@
 
 using namespace std;
 
+
+/*
+Class dedicated to process a linked list and gather a result.
+Previous to any calculation, the validity of the string input checked.
+*/
+
+
 class MathOperations
 {
 

@@ -14,8 +14,9 @@ using namespace std;
 class ReadCSV
 {
 private:
-	ifstream datafile;
+	
 public:
+	ifstream datafile;
 	ReadCSV();
 	ReadCSV(char * name);
 	~ReadCSV();

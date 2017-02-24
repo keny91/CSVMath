@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "MathOperations.h"
 
+/*NUMBER,SYMBOL,NUMBER,SYMBOL,...*/
+/*NOTE: Start and End in NUMBER*/
+/*OPERATIONS ARE  NUMBER+SYMBOL+NUMBER*/
+/*N_NUMBERS n+1  || N_Symbols: n  */
 
 
 MathOperations::MathOperations(string input)
@@ -10,13 +14,10 @@ MathOperations::MathOperations(string input)
 	
 	//char validOperatorsprov[] = "+-/*";
 	validOperators = new char(sizeof("+-/*"));
-	validNumbers = new char(sizeof("0123456789"));
+	validNumbers = new char(sizeof("0123456789."));
 	validOperators = "+-/*";
-	validNumbers = "0123456789";
+	validNumbers = "0123456789.";
 	NodeList = NULL;
-	//validOperators = validOperatorsprov;
-	//validNumbers = validNumbersprov;
-
 
 	separator = ',';
 }
@@ -30,11 +31,10 @@ MathOperations::MathOperations(string input)
 */
 
 
-/*NUMBER,SYMBOL,NUMBER,SYMBOL,...*/
-/*NOTE: Start and End in NUMBER*/
-/*OPERATIONS ARE  NUMBER+SYMBOL+NUMBER*/
-/*N_NUMBERS n+1  || N_Symbols: n  */
 
+
+
+/* Check if the formula provided is valid given the parameters */
 bool MathOperations::CheckValidFormula(){
 	
 	bool expectNumber = true;
@@ -46,12 +46,12 @@ bool MathOperations::CheckValidFormula(){
 	string data;
 	int count = 0;
 	while (std::getline(linestream, data, separator)) {
-		cout << data << endl;
+		//cout << data << endl;
 		count++;
-		if (expectNumber) {
+		if (expectNumber) { // The next input will be a number?
 			result = IsNumber(data);
 		}
-		else if (expectSymbol) {
+		else if (expectSymbol) {  // The next input will be a symbol?
 			result = IsOperator(data);
 		}
 		
@@ -89,19 +89,18 @@ bool MathOperations::CheckValidFormula(){
 				
 	}
 
-	N_symbols = (count - 1) / 2;	
+	N_symbols = (count - 1) / 2;	// Get the number of operations 
 	cout << "Valid Formula; there are "<< N_symbols << "  operations "<<endl;
 	return true;
 	
 }
 
 
-
+/* Check if the input string is considered a valid operator*/
 bool MathOperations::IsOperator(string str) {
-	//char prov [200];
+
 	const char * prov = str.c_str();
-	//strcpy(prov, str.c_str());
-	//str = string(*str);
+
 	if (strlen(prov) == (unsigned int)1)  // Operators will only be a single char
 	{
 		for (int i = 0; i < sizeof(validOperators)/ sizeof(char); i++)
@@ -114,13 +113,15 @@ bool MathOperations::IsOperator(string str) {
 
 }
 
-
+/*Depending on the priority stage we will be looking to do a different set of operations*/
 void MathOperations::DoOperationBasedOnPriority(int priority) 
 {
 
 	MathNode * presentNode = NodeList;  // Start from the beggining
 	bool done = false;
 	MathNode* n;
+
+	cout << "Operations with priority: " << priority << endl << endl;
 	while (presentNode->GetNext() != NULL && presentNode->GetNext()->GetNext() != NULL) // check that we have enough nodes to operate with
 	{
 		n  = DoNodeOperations(presentNode, priority);  //
@@ -133,11 +134,14 @@ void MathOperations::DoOperationBasedOnPriority(int priority)
 		}
 	}
 
+	cout << endl;
 
 }
 
 
 /* Check if the input string is a number*/
+/* Any number combination that can incluying a single '.'  -> having 2 dots will trigger an error*/
+
 bool MathOperations::IsNumber(string str) {
 
 
@@ -146,12 +150,14 @@ bool MathOperations::IsNumber(string str) {
 	//strcpy(prov, str.c_str());
 	bool found;
 
+	/*   OLD LESS EFFICIENT IMPLEMENTATION
 	for (int j = 0; j < strlen(prov); j++) {
 		found = false;
 		for (int i = 0; i < strlen(validNumbers) / sizeof(char); i++) {
 		 
 			if (validNumbers[i] == prov[j]) { // found the number in the list
 				found = true;
+
 				break;
 			}						
 		}
@@ -160,6 +166,16 @@ bool MathOperations::IsNumber(string str) {
 			return false;
 		}
 			
+	}
+	*/
+
+
+	if (stof(str) != NULL) {  // Check if the number is convertible to float format
+		return true;
+	}
+	else {
+		cout << "Invalid Number:" << str << endl;
+		return false;
 	}
 	
 	return true;  // return false in any other case
@@ -171,7 +187,7 @@ bool MathOperations::IsNumber(string str) {
 
 
 
-/*  */
+/* Get the initial node in the list  */
 MathNode* MathOperations::DoNodeOperations(MathNode* firstNode, int priority){
 
 	//MathNode* firstNode;
@@ -183,12 +199,13 @@ MathNode* MathOperations::DoNodeOperations(MathNode* firstNode, int priority){
 	float result;
 	bool done = false;
 
+
 	if ((Symbol == '/' || Symbol == '*') && priority == 1)   // Design more dynamic systems -- revamp symbols available
 	{
 		param1 = stof(firstNode->GetContent());
 		param2 = stof(SecondNode->GetContent());
 		result = DoOperation(param1 , param2, Symbol);
-		cout << "Performing \'" << Symbol << "\'." << endl;
+		
 		done = true;
 
 	}
@@ -197,12 +214,13 @@ MathNode* MathOperations::DoNodeOperations(MathNode* firstNode, int priority){
 		param1 = stof(firstNode->GetContent());
 		param2 = stof(SecondNode->GetContent());
 		result = DoOperation(param1, param2, Symbol);
-		cout << "Performing \'" << Symbol << "\'." << endl;
+		//cout << "Performing \'" << Symbol << "\'." << endl;
 		done = true;
 	}
 	else
 		return NULL;
 
+	cout << "Performing: " << param1 << "   " << Symbol << "   " << param2 << "  =  " << result <<endl;
 
 	MathNode * newNode = new MathNode();
 	// Set new values
@@ -235,7 +253,9 @@ MathNode* MathOperations::DoNodeOperations(MathNode* firstNode, int priority){
 	
 
 	//Delete the used 3 nodes to prevent leaks
-
+	delete firstNode;
+	delete SymbolNode;
+	delete SecondNode;
 
 
 }

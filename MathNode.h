@@ -8,6 +8,13 @@
 
 using namespace std;
 
+/*
+Class representing the nodes of a linked list.
+Each node stores references to the previous and next nodes.
+The content is stored as a string and is specified wheter it contains a symbol or a number.
+*/
+
+
 class MathNode
 {
 

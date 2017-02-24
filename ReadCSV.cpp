@@ -16,31 +16,37 @@ ReadCSV::~ReadCSV()
 {
 }
 
-
+/*Try to open the file*/
 void ReadCSV::InitCSVInputLog(char* FileName) {
 
 	char * FolderName;
-	char directory[200];
+	char directory[1000];
 	char * postfix = ".csv";
 	FolderName = "./Input/";
 
 
-
+	/*
 	strcpy_s(directory, FolderName);  // ./Output/
 	strcat_s(directory, FileName);	// ./Output/FileName
 	strcat_s(directory, postfix);
+	*/
 
+	strcpy_s(directory, FileName);
 
 	/*
 	if (_mkdir(directory) ||
 	ERROR_ALREADY_EXISTS == GetLastError())
 	*/
 
-	datafile = ifstream(directory);
-	cout << "Opened file " << directory << endl;
+	datafile = ifstream(FileName);
+
+
+	cout << "Opened file " << FileName << endl;
 }
 
 
+
+/* Extract the content from the .CSV file*/
 string ReadCSV::GetFormula() {
 
 	char prov[5000];
@@ -59,6 +65,8 @@ string ReadCSV::GetFormula() {
 	//cout << input << endl;
 }
 
+
+/*Close the opened file*/
 void ReadCSV::CloseCSV() {
 	datafile.close();
 
