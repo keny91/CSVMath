@@ -5,7 +5,7 @@
 #include "MathOperations.h"
 #include "RecordCSV.h"
 #include "ReadCSV.h"
-#include <cstdio>
+//#include <cstdio>
 
 
 
@@ -14,22 +14,6 @@ void InitFolders();
 int main(int argc, char *argv[])
 {
 	
-	//char* InFileName = "SampleBad";
-
-	//char* OutFileName = "test";
-	//char* InFileName = "Sample";
-
-/*
-	if (argc != 3) {
-		cout << "You need to supply one argument to this program. Press any key to exit";
-		getchar();
-		return -1;
-	}
-	*/
-
-
-	// Initialize input and output folders
-	//InitFolders(); // no need anymore
 
 	//char* OutFileName = "testbad";
 	char* InFileName = new char();
@@ -37,10 +21,12 @@ int main(int argc, char *argv[])
 	if (argc == 1) {
 		cout <<  endl << endl << "No Arguments detected: " << endl;
 		cout << "Please enter the input Directory value: " << endl;
+		cout << "Remember to include file extension \".csv\". " << endl;
 		cin >> InFileName;
 		//cout <<sizeof(InFileName) << endl << endl;
 
 		cout << "Please enter the output Directory value: " << endl;
+		cout << "Remember to include file extension \".csv\" at the end. " << endl;
 		cin >> OutFileName;
 		//cout << endl << OutFileName;
 	}

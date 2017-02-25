@@ -1,6 +1,6 @@
 
 #include "RecordCSV.h"
-
+//#include "stdafx.h"
 
 
 RecordCSV::RecordCSV()
@@ -23,15 +23,15 @@ Recording Datafile Operations
 
 void RecordCSV::InitCSVOutputLog(char* FileName) {
 
-	char * FolderName;
+	
 	char directory[1000];
 	char * postfix = ".csv";
-	FolderName = "./Output/";
+	//char * FolderName;
+	//FolderName = "./Output/";
 
 
 	
 	strcpy_s(directory, FileName);  // ./Output/
-	//strcat_s(directory, FileName);	// ./Output/FileName
 	strcat_s(directory, postfix);
 	
 
